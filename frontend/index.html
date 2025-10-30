@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎵 Music Analysis - Análisis Musical Profesional</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">
+                    <i class="fas fa-music"></i>
+                    Music Analysis
+                </h1>
+                <nav class="nav">
+                    <a href="#upload" class="nav-link">Subir Audio</a>
+                    <a href="#results" class="nav-link">Resultados</a>
+                    <a href="#about" class="nav-link">Acerca de</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-title">Análisis Musical Profesional</h2>
+                    <p class="hero-subtitle">
+                        Detecta tonalidad, acordes, progresiones armónicas y notas musicales
+                        de tus archivos de audio con tecnología de vanguardia.
+                    </p>
+                    <div class="hero-features">
+                        <div class="feature">
+                            <i class="fas fa-key"></i>
+                            <span>Detección de Tonalidad</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-guitar"></i>
+                            <span>Análisis de Acordes</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Progresiones Armónicas</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-microphone"></i>
+                            <span>Reconocimiento de Voz</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upload Section -->
+        <section id="upload" class="upload-section">
+            <div class="container">
+                <div class="section-header">
+                    <h3 class="section-title">Subir o Grabar Audio</h3>
+                    <p class="section-subtitle">
+                        Sube un archivo MP3/WAV o graba directamente desde tu micrófono
+                    </p>
+                </div>
+
+                <div class="upload-container">
+                    <!-- File Upload -->
+                    <div class="upload-box" id="fileUploadBox">
+                        <div class="upload-content">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <h4>Subir Archivo</h4>
+                            <p>Arrastra y suelta tu archivo aquí o haz clic para seleccionar</p>
+                            <input type="file" id="audioFile" accept=".mp3,.wav,.m4a,.flac" hidden>
+                            <button class="btn btn-primary" onclick="document.getElementById('audioFile').click()">
+                                Seleccionar Archivo
+                            </button>
+                        </div>
+                        <div class="upload-progress" id="fileProgress" style="display: none;">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="fileProgressFill"></div>
+                            </div>
+                            <span class="progress-text" id="fileProgressText">Subiendo...</span>
+                        </div>
+                    </div>
+
+                    <!-- Recording -->
+                    <div class="upload-box" id="recordBox">
+                        <div class="upload-content">
+                            <i class="fas fa-microphone upload-icon"></i>
+                            <h4>🎵 Identificar Canción (Shazam)</h4>
+                            <p>Reproduce una canción cerca del micrófono para identificarla automáticamente</p>
+                            <div class="recording-instructions">
+                                <p><strong>Instrucciones:</strong></p>
+                                <ul>
+                                    <li>🎶 Reproduce la canción que quieres identificar</li>
+                                    <li>🎤 Mantén presionado el botón para grabar (mínimo 10 segundos)</li>
+                                    <li>🔍 Se identificará automáticamente con letras y enlaces</li>
+                                    <li>📊 También obtendrás el análisis musical completo</li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-record" id="recordBtn" onmousedown="startRecording()"
+                                onmouseup="stopRecording()" ontouchstart="startRecording()"
+                                ontouchend="stopRecording()">
+                                <i class="fas fa-microphone"></i>
+                                <span id="recordText">Mantén presionado para grabar</span>
+                            </button>
+                            <div class="recording-timer" id="recordingTimer" style="display: none;">00:00</div>
+                        </div>
+                    </div>
+
+                    <!-- YouTube Download -->
+                    <div class="upload-box" id="youtubeBox">
+                        <div class="upload-content">
+                            <i class="fab fa-youtube upload-icon"></i>
+                            <h4>Descargar de YouTube</h4>
+                            <p>Pega un enlace de YouTube para descargar audio o video</p>
+                            
+                            <!-- URL Input -->
+                            <div class="youtube-input-group">
+                                <input type="url" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=..."
+                                    class="youtube-input" onchange="previewYouTubeVideo()">
+                                <button class="btn btn-outline" onclick="previewYouTubeVideo()" type="button">
+                                    <i class="fas fa-info-circle"></i> Vista Previa
+                                </button>
+                            </div>
+
+                            <!-- Video Preview -->
+                            <div class="youtube-preview" id="youtubePreview" style="display: none;">
+                                <div class="video-info">
+                                    <h5 id="videoTitle">Título del video</h5>
+                                    <p id="videoChannel">Canal</p>
+                                    <div class="video-stats">
+                                        <span id="videoDuration">⏱️ 0:00</span>
+                                        <span id="videoViews">👀 0</span>
+                                        <span id="videoDate">📅 --</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Download Type Selection -->
+                            <div class="download-type-selector">
+                                <label class="radio-option">
+                                    <input type="radio" name="downloadType" value="audio" checked onchange="toggleDownloadOptions()">
+                                    <span class="radio-custom"></span>
+                                    <i class="fas fa-music"></i> Solo Audio
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="downloadType" value="video" onchange="toggleDownloadOptions()">
+                                    <span class="radio-custom"></span>
+                                    <i class="fas fa-video"></i> Video Completo
+                                </label>
+                            </div>
+
+                            <!-- Audio Options -->
+                            <div class="download-options" id="audioOptions">
+                                <label>Formato de Audio:</label>
+                                <select id="audioFormat" class="format-select">
+                                    <option value="mp3">MP3 (Comprimido - 192kbps)</option>
+                                    <option value="wav">WAV (Sin compresión)</option>
+                                    <option value="m4a">M4A (Apple - Buena calidad)</option>
+                                    <option value="flac">FLAC (Sin pérdida - Máxima calidad)</option>
+                                </select>
+                            </div>
+
+                            <!-- Video Options -->
+                            <div class="download-options" id="videoOptions" style="display: none;">
+                                <label>Calidad de Video:</label>
+                                <select id="videoQuality" class="format-select">
+                                    <option value="360p">360p (Básica - Menor tamaño)</option>
+                                    <option value="480p">480p (Estándar)</option>
+                                    <option value="720p" selected>720p (HD - Recomendado)</option>
+                                    <option value="1080p">1080p (Full HD - Mayor tamaño)</option>
+                                    <option value="best">Mejor Disponible</option>
+                                </select>
+                            </div>
+
+                            <!-- Download Button -->
+                            <button class="btn btn-youtube" id="youtubeDownloadBtn" onclick="downloadFromYouTube()" type="button">
+                                <i class="fas fa-download"></i>
+                                <span id="downloadButtonText">Descargar Audio</span>
+                            </button>
+                        </div>
+                        
+                        <div class="upload-progress" id="youtubeProgress" style="display: none;">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="youtubeProgressFill"></div>
+                            </div>
+                            <span class="progress-text" id="youtubeProgressText">Descargando...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Audio Preview -->
+                <div class="audio-preview" id="audioPreview" style="display: none;">
+                    <h4>Vista Previa del Audio</h4>
+                    <audio controls id="audioPlayer"></audio>
+                    <div class="audio-info" id="audioInfo"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results" class="results-section">
+            <div class="container">
+                <div class="section-header">
+                    <h3 class="section-title">Resultados del Análisis</h3>
+                    <p class="section-subtitle">
+                        Información detallada sobre la composición musical
+                    </p>
+                </div>
+
+                <div class="results-container" id="resultsContainer">
+                    <div class="loading-state" id="loadingState" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>Analizando audio...</p>
+                    </div>
+
+                    <div class="results-content" id="resultsContent" style="display: none;">
+                        <!-- Song Identification -->
+                        <div class="result-card" id="songIdentificationCard" style="display: none;">
+                            <h4><i class="fas fa-search"></i> Identificación de Canción</h4>
+                            <div class="song-info" id="songInfo">
+                                <div class="song-details">
+                                    <h5 id="songTitle">Título no identificado</h5>
+                                    <p id="songArtist">Artista desconocido</p>
+                                    <p id="songAlbum"></p>
+                                    <div class="confidence-bar">
+                                        <label>Confianza:</label>
+                                        <div class="confidence-meter">
+                                            <div class="confidence-fill" id="confidenceFill"></div>
+                                        </div>
+                                        <span id="confidenceText">0%</span>
+                                    </div>
+                                </div>
+                                <div class="music-links" id="musicLinks" style="display: none;">
+                                    <h6>Escuchar en:</h6>
+                                    <div class="links-grid">
+                                        <a href="#" id="youtubeLink" target="_blank" class="music-link youtube">
+                                            <i class="fab fa-youtube"></i> YouTube
+                                        </a>
+                                        <a href="#" id="spotifyLink" target="_blank" class="music-link spotify">
+                                            <i class="fab fa-spotify"></i> Spotify
+                                        </a>
+                                        <a href="#" id="appleMusicLink" target="_blank" class="music-link apple">
+                                            <i class="fab fa-apple"></i> Apple Music
+                                        </a>
+                                        <a href="#" id="deezerLink" target="_blank" class="music-link deezer">
+                                            <i class="fas fa-music"></i> Deezer
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Basic Info -->
+                        <div class="result-card">
+                            <h4><i class="fas fa-info-circle"></i> Información Básica</h4>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <label>Tonalidad:</label>
+                                    <span id="resultKey">-</span>
+                                </div>
+                                <div class="info-item">
+                                    <label>BPM:</label>
+                                    <span id="resultBPM">-</span>
+                                </div>
+                                <div class="info-item">
+                                    <label>Duración:</label>
+                                    <span id="resultDuration">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chord Progression -->
+                        <div class="result-card">
+                            <h4><i class="fas fa-guitar"></i> Progresión de Acordes</h4>
+                            <div class="chord-progression" id="chordProgression">
+                                <!-- Chords will be dynamically inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- Timeline -->
+                        <div class="result-card">
+                            <h4><i class="fas fa-clock"></i> Línea de Tiempo</h4>
+                            <div class="timeline-controls">
+                                <button class="btn btn-outline" id="toggleTimelineBtn" onclick="toggleFullTimeline()">
+                                    <i class="fas fa-expand"></i> Ver Progresión Completa
+                                </button>
+                            </div>
+                            <div class="timeline" id="timeline">
+                                <!-- Timeline items will be dynamically inserted here -->
+                            </div>
+                            <div class="timeline-full" id="timelineFull" style="display: none;">
+                                <!-- Full timeline will be shown here -->
+                            </div>
+                        </div>
+
+                        <!-- Notes -->
+                        <div class="result-card">
+                            <h4><i class="fas fa-music"></i> Notas Principales</h4>
+                            <div class="notes-list" id="notesList">
+                                <!-- Notes will be dynamically inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- Lyrics -->
+                        <div class="result-card" id="lyricsCard" style="display: none;">
+                            <h4><i class="fas fa-quote-left"></i> Letra</h4>
+                            <div class="lyrics-actions" style="margin-bottom: 15px; display: none;" id="lyricsActions">
+                                <button class="btn btn-primary" onclick="app.openLyricsSearch(app.currentFileInfo?.artist || 'Unknown', app.currentFileInfo?.title || 'Unknown')">
+                                    <i class="fas fa-external-link-alt"></i> Buscar Letras en Web
+                                </button>
+                            </div>
+                            <div class="lyrics-content" id="lyricsContent">
+                                <!-- Lyrics will be dynamically inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- Downloads Manager -->
+                        <div class="result-card" id="downloadsCard" style="display: none;">
+                            <h4><i class="fas fa-folder-open"></i> Archivos Descargados</h4>
+                            <div class="downloads-actions" style="margin-bottom: 15px;">
+                                <button class="btn btn-outline" onclick="refreshDownloads()">
+                                    <i class="fas fa-sync-alt"></i> Actualizar Lista
+                                </button>
+                                <button class="btn btn-outline" onclick="openDownloadsFolder()">
+                                    <i class="fas fa-folder-open"></i> Abrir Carpeta
+                                </button>
+                            </div>
+                            <div class="downloads-list" id="downloadsList">
+                                <!-- Downloads will be listed here -->
+                            </div>
+                        </div>
+
+                        <!-- Export Options -->
+                        <div class="result-card">
+                            <h4><i class="fas fa-download"></i> Exportar Resultados</h4>
+                            <div class="export-buttons">
+                                <button class="btn btn-outline" onclick="exportResults('json')">
+                                    <i class="fas fa-file-code"></i> JSON
+                                </button>
+                                <button class="btn btn-outline" onclick="exportResults('txt')">
+                                    <i class="fas fa-file-alt"></i> TXT
+                                </button>
+                                <button class="btn btn-outline" onclick="exportResults('pdf')">
+                                    <i class="fas fa-file-pdf"></i> PDF
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="error-state" id="errorState" style="display: none;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h4>Error en el Análisis</h4>
+                        <p id="errorMessage">Ha ocurrido un error al procesar el audio.</p>
+                        <button class="btn btn-primary" onclick="resetUpload()">
+                            Intentar de Nuevo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <div class="section-header">
+                    <h3 class="section-title">Acerca de Music Analysis</h3>
+                    <p class="section-subtitle">
+                        Tecnología avanzada para el análisis musical profesional
+                    </p>
+                </div>
+
+                <div class="about-content">
+                    <div class="about-text">
+                        <h4>¿Qué es Music Analysis?</h4>
+                        <p>
+                            Music Analysis es una aplicación web profesional que utiliza inteligencia artificial
+                            y procesamiento de señales avanzado para analizar archivos de audio musicales.
+                            Nuestra tecnología puede detectar automáticamente tonalidades, acordes,
+                            progresiones armónicas y extraer información musical detallada.
+                        </p>
+
+                        <h4>Características Técnicas</h4>
+                        <ul>
+                            <li><strong>Detección de Tonalidad:</strong> Análisis de chroma y patrones armónicos</li>
+                            <li><strong>Análisis de Acordes:</strong> Identificación automática de acordes y
+                                progresiones</li>
+                            <li><strong>Línea de Tiempo:</strong> Visualización temporal de cambios armónicos</li>
+                            <li><strong>Reconocimiento de Voz:</strong> Extracción de letras usando Whisper AI</li>
+                            <li><strong>Exportación:</strong> Resultados en múltiples formatos (JSON, TXT, PDF)</li>
+                        </ul>
+                    </div>
+
+                    <div class="tech-stack">
+                        <h4>Tecnologías Utilizadas</h4>
+                        <div class="tech-grid">
+                            <div class="tech-item">
+                                <i class="fab fa-golang"></i>
+                                <span>Go + Gin</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fab fa-python"></i>
+                                <span>Python + librosa</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fab fa-js"></i>
+                                <span>JavaScript ES6+</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-brain"></i>
+                                <span>Whisper AI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Music Analysis. Desarrollado con ❤️ para músicos y compositores.</p>
+                <div class="footer-links">
+                    <a href="#privacy">Privacidad</a>
+                    <a href="#terms">Términos</a>
+                    <a href="#contact">Contacto</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+</body>
+
+</html>

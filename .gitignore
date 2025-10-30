@@ -1,0 +1,78 @@
+# Entornos virtuales de Python
+venv/
+.venv/
+env/
+.env/
+
+# Archivos de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Archivos de audio temporales
+temp_audio/
+uploads/
+*.tmp
+
+# Archivos de configuración local
+.env
+config.local.*
+
+# Logs
+*.log
+logs/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivos de IDE
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Archivos de Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+
+# Dependencias de Node.js (si las hay)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos de audio descargados (opcional - puedes comentar si quieres incluirlos)
+downloads/*.mp3
+downloads/*.wav
+downloads/*.m4a
+downloads/*.mp4
+downloads/*.flac
+
+# Archivos temporales de Windows
+*.tmp
+*.temp

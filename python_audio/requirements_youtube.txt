@@ -1,0 +1,5 @@
+# Dependencias específicas para descarga de YouTube
+yt-dlp>=2023.12.30
+pytube>=15.0.0
+pydub>=0.25.1
+requests>=2.28.0
