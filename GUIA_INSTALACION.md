@@ -1,5 +1,21 @@
 # 🚀 GUÍA DE INSTALACIÓN - MUSIC ANALYSIS
 
+## � RRepositorio GitHub
+**URL:** https://github.com/Voinich26/music-analysis-app.git
+
+## 🔽 Descarga del Proyecto
+
+### Opción 1: Clonar con Git
+```bash
+git clone https://github.com/Voinich26/music-analysis-app.git
+cd music-analysis-app
+```
+
+### Opción 2: Descargar ZIP
+1. Ve a https://github.com/Voinich26/music-analysis-app
+2. Haz clic en "Code" → "Download ZIP"
+3. Extrae el archivo en tu carpeta deseada
+
 ## 📋 Requisitos del Sistema
 
 ### Software Necesario
